@@ -6,16 +6,18 @@ class Catalogue extends Component {
         super(props);
         this.state = {}
     }
-
+    produitChange(id, quantite) {
+        console.log("produit change dans catalogue : ", id, quantite);
+        this.props.produitChange(id, quantite);
+    }
     render() {
-        console.log(this.props.produits);
         return (
             <>
                 <h1>Catalogue</h1>
                 <section>
                     {
                         this.props.produits.map((produit) => {
-                            return <Produit produit={produit} key={produit.id} />
+                            return <Produit produit={produit} key={produit.id} produitChange={(id, quantite) => this.produitChange(id, quantite)} />
                         })
                     }
                 </section>

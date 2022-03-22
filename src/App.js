@@ -15,14 +15,20 @@ class App extends Component {
     // Ici on initialise les données du composant
     const response = await fetch("datas/datas.json");
     const datas = await response.json();
+    datas.map(prod => prod.quantite = 0);
+    console.log(datas);
     this.setState({ produits: datas });
+  }
+  produitChange(id, quantite) {
+    console.log("produit change dans App : ", id, quantite);
+    // on va mettre à jour le catalogue
   }
   render() {
     return (
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path='/catalogue' element={<Catalogue produits={this.state.produits} />} />
+          <Route path='/catalogue' element={<Catalogue produits={this.state.produits} produitChange={(id, quantite) => this.produitChange(id, quantite)} />} />
           <Route path='/panier' element={<Panier />} />
           <Route path='/' element={<Accueil />} />
         </Routes>
